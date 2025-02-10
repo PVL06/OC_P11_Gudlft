@@ -1,5 +1,4 @@
 .Python
-tests/
 .envrc
 __pycache__
 .env/

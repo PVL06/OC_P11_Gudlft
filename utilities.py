@@ -54,11 +54,11 @@ class Clubs:
             return club[0]
 
     def get_club_points(self, club_name: str) -> dict:
-        club = self.get_club(club_name)
+        club = self.get_club_by_name(club_name)
         if club:
             return club['points']
 
     def withdraw_club_points(self, club_name: str, points: int) -> None:
-        club = self.get_club(club_name)
+        club = self.get_club_by_name(club_name)
         if club:
             club['points'] = str(int(club['points']) - points)
