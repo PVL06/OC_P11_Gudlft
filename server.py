@@ -3,13 +3,10 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 from utilities import Clubs, Competitions
 
 
-def create_app():
+def create_app(clubs, competitions):
 
     app = Flask(__name__)
     app.secret_key = 'something_special'
-
-    clubs = Clubs()
-    competitions = Competitions()
 
     @app.route('/')
     def index():
@@ -70,5 +67,7 @@ def create_app():
 
 
 if __name__ == '__main__':
-    app = create_app()
+    clubs = Clubs()
+    competitions = Competitions()
+    app = create_app(clubs, competitions)
     app.run(debug=True)
