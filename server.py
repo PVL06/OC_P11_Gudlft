@@ -21,6 +21,9 @@ def create_app(clubs, competitions):
                 club=club,
                 competitions=competitions.get_list()
             )
+        else:
+            flash("Email not found")
+            return render_template('index.html')
 
     @app.route('/book/<competition>/<club>')
     def book(competition, club):

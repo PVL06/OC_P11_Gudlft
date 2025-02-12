@@ -56,6 +56,16 @@ class TestIntegrationServer:
         assert data.find(f"<h2>Welcome, { clubs.clubs[0]['email'] } </h2>") != -1
         assert data.find(f"{ competitions.competitions[0]['name'] }<br />") != -1
 
+    def test_login_with_invalid_email(self, client):
+        credential = {
+            'email': 'bad@email.com'
+        }
+        res = client.post('/showSummary', data=credential)
+        data = res.data.decode()
+        assert res.status_code == 200
+        assert data.find('<li>Email not found</li>') != -1
+        assert data.find('<title>GUDLFT Registration</title>') != -1
+
     def test_logout_user(self, client):
         res = client.get('/logout', follow_redirects=True)
         data = res.data.decode()

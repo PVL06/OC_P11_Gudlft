@@ -64,6 +64,17 @@ class TestUnitServer:
         assert data.find("<h2>Welcome, test@test.com </h2>") != -1
         assert data.find("test_competition_name<br />") != -1
 
+    def test_login_with_invalid_email(self, client, clubs):
+        clubs.get_club_by_email.return_value = None
+        credential = {
+            'email': 'bad@email.com'
+        }
+        res = client.post('/showSummary', data=credential)
+        data = res.data.decode()
+        assert res.status_code == 200
+        assert data.find('<li>Email not found</li>') != -1
+        assert data.find('<title>GUDLFT Registration</title>') != -1
+
     def test_logout_user(self, client):
         res = client.get('/logout', follow_redirects=True)
         data = res.data.decode()
