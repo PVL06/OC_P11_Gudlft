@@ -36,22 +36,29 @@ class TestCompetitions:
 
     def test_get_competition_and_place_with_valid_name(self, competitions):
         name = 'good_competition_name'
-        assert competitions.get_competition(name) == competitions.competitions[0]
-        assert competitions.get_competition_place(name) == "25"
+        competition = competitions.get_competition(name)
 
-    def test_get_competition_and_place_with_invalid_name(self, competitions):
+        assert competition == competitions.competitions[0]
+        assert competition['numberOfPlaces'] == "25"
+
+    def test_get_competition_with_invalid_name(self, competitions):
         name = 'bad_competition_name'
-        assert competitions.get_competition(name) is None
-        assert competitions.get_competition_place(name) is None
+        competition = competitions.get_competition(name)
+
+        assert competition is None
 
     def test_withdraw_place_with_valid_name(self, competitions):
         name = 'good_competition_name'
-        competitions.withdraw_competition_places(name, 5)
+        competition = competitions.get_competition(name)
+        competitions.withdraw_competition_places(competition, 5)
+
         assert competitions.competitions[0]['numberOfPlaces'] == "20"
 
     def test_withdraw_place_with_invalid_name(self, competitions):
         name = 'bad_competition_name'
-        competitions.withdraw_competition_places(name, 5)
+        competition = competitions.get_competition(name)
+        competitions.withdraw_competition_places(competition, 5)
+
         assert competitions.competitions[0]['numberOfPlaces'] == "25"
 
 
@@ -60,26 +67,35 @@ class TestClubs:
     def test_get_clubs_list(self, clubs):
         assert len(clubs.get_list()) == 1
 
-    def test_connection_and_points_with_good_email_or_name(self, clubs):
+    def test_connection_with_good_email_or_name(self, clubs):
         email = 'good@test.com'
         name = 'good_club_name'
-        assert clubs.get_club_by_email(email) == clubs.clubs[0]
-        assert clubs.get_club_by_name(name) == clubs.clubs[0]
-        assert clubs.get_club_points(name) == clubs.clubs[0]['points']
+        club_email = clubs.get_club_by_email(email)
+        club_name = clubs.get_club_by_name(name)
 
-    def test_connection_and_points_with_bad_email_or_name(self, clubs):
+        assert club_email == clubs.clubs[0]
+        assert club_name == clubs.clubs[0]
+
+    def test_connection_with_bad_email_or_name(self, clubs):
         email = 'bad@email.com'
         name = 'bad_club_name'
-        assert clubs.get_club_by_email(email) is None
-        assert clubs.get_club_by_name(name) is None
-        assert clubs.get_club_points(name) is None
+
+        club_email = clubs.get_club_by_email(email)
+        club_name = clubs.get_club_by_name(name)
+
+        assert club_email is None
+        assert club_name is None
 
     def test_withdraw_club_point_with_good_name(self, clubs):
         name = 'good_club_name'
-        clubs.withdraw_club_points(name, 4)
-        assert clubs.clubs[0]['points'] == '0'
+        club = clubs.get_club_by_name(name)
+        clubs.withdraw_club_points(club, 4)
+
+        assert club['points'] == '0'
 
     def test_withdraw_club_point_with_bad_name(self, clubs):
         name = 'bad_club_name'
-        clubs.withdraw_club_points(name, 4)
+        club = clubs.get_club_by_name(name)
+        clubs.withdraw_club_points(club, 4)
+
         assert clubs.clubs[0]['points'] == '4'

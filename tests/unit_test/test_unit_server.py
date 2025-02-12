@@ -9,14 +9,13 @@ def clubs():
     club = {
         "name": "test_club_name",
         "email": "test@test.com",
-        "points": "10"
+        "points": "20"
     }
     mock_clubs = MagicMock()
 
     mock_clubs.get_list.return_value = [club]
     mock_clubs.get_club_by_name.return_value = club
     mock_clubs.get_club_by_email.return_value = club
-    mock_clubs.get_club_points.return_value = club['points']
     mock_clubs.withdraw_club_point.return_value = None
     return mock_clubs
 
@@ -32,7 +31,6 @@ def competitions():
 
     mock_competitions.get_list.return_value = [competition]
     mock_competitions.get_competition.return_value = competition
-    mock_competitions.get_competition_place.return_value = competition['numberOfPlaces']
     mock_competitions.withdraw_competition_places.return_value = None
     return mock_competitions
 
@@ -51,6 +49,7 @@ class TestUnitServer:
     def test_index_route_is_accessible(self, client):
         res = client.get('/')
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
@@ -58,8 +57,10 @@ class TestUnitServer:
         credential = {
             'email': 'test@test.com'
         }
+
         res = client.post('/showSummary', data=credential)
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find("<h2>Welcome, test@test.com </h2>") != -1
         assert data.find("test_competition_name<br />") != -1
@@ -69,8 +70,10 @@ class TestUnitServer:
         credential = {
             'email': 'bad@email.com'
         }
+
         res = client.post('/showSummary', data=credential)
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find('<li>Email not found</li>') != -1
         assert data.find('<title>GUDLFT Registration</title>') != -1
@@ -78,32 +81,51 @@ class TestUnitServer:
     def test_logout_user(self, client):
         res = client.get('/logout', follow_redirects=True)
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_book_reservation_with_valid_club_and_competition(self, client):
         competition = 'test_competition_name'
         club = 'test_club_name'
+
         res = client.get(f'/book/{competition}/{club}')
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find(f'<title>Booking for {competition} || GUDLFT</title>') != -1
 
     def test_book_reservation_with_invalid_club_or_competition(self, client, clubs):
         clubs.get_club_by_name.return_value = None
+
         res = client.get('/book/invalid_competition/invalid_club')
         data = res.data.decode()
+
         assert res.status_code == 200
         assert data.find('<li>Something went wrong-please try again</li>') != -1
         assert data.find('<title>Summary | GUDLFT Registration</title>') != -1
 
-    def test_purchase_place_with_valid_club_and_competition(self, client, clubs, competitions):
-        values = {
+    def test_purchase_place_with_valid_club_and_competition(self, client):
+        post_data = {
             'club': 'test_club_name',
             'competition': 'test_competition_name',
-            'places': 10
+            'places': '10'
         }
-        res = client.post('/purchasePlaces', data=values, follow_redirects=True)
+
+        res = client.post('/purchasePlaces', data=post_data, follow_redirects=True)
         data = res.data.decode()
         assert res.status_code == 200
-        assert data.find("<h2>Welcome, test@test.com </h2>") != -1
+        assert data.find('<title>Summary | GUDLFT Registration</title>') != -1
+
+    def test_purchase_place_with_invalid_club_and_competition(self, client, clubs):
+        clubs.get_club_by_name.return_value = None
+        post_data = {
+            'club': 'invalid_club_name',
+            'competition': 'invalid_competition_name',
+            'places': '10'
+        }
+
+        res = client.post('/purchasePlaces', data=post_data, follow_redirects=True)
+        data = res.data.decode()
+        assert res.status_code == 200
+        assert data.find('<title>GUDLFT Registration</title>') != -1

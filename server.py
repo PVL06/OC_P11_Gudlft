@@ -48,17 +48,31 @@ def create_app(clubs, competitions):
     def purchase_places():
         places_required = int(request.form['places'])
         club = clubs.get_club_by_name(request.form['club'])
-        competitions.withdraw_competition_places(
-            request.form['competition'],
-            places_required
-        )
+        competition = competitions.get_competition(request.form['competition'])
 
-        flash('Great-booking complete!')
-        return render_template(
-            'welcome.html',
-            club=club,
-            competitions=competitions.get_list()
-        )
+        if club and competition:
+            if places_required > int(club['points']):
+                flash("You cannot reserve more place than your number of points")
+            else:
+                competitions.withdraw_competition_places(
+                    competition,
+                    places_required
+                )
+                clubs.withdraw_club_points(
+                    club,
+                    places_required
+                )
+
+                flash('Great-booking complete!')
+
+            return render_template(
+                'welcome.html',
+                club=club,
+                competitions=competitions.get_list()
+            )
+        else:
+            flash('Something went wrong-please try again')
+            return redirect(url_for('index'))
 
     # TODO: Add route for points display
 
