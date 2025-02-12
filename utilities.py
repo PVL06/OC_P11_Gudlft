@@ -20,13 +20,7 @@ class Competitions:
         if competition:
             return competition[0]
 
-    def get_competition_place(self, competition_name: str) -> int:
-        competition = self.get_competition(competition_name)
-        if competition:
-            return competition['numberOfPlaces']
-
-    def withdraw_competition_places(self, competition_name: str, nb_of_place: int) -> None:
-        competition = self.get_competition(competition_name)
+    def withdraw_competition_places(self, competition, nb_of_place: int) -> None:
         if competition:
             competition['numberOfPlaces'] = str(int(competition['numberOfPlaces']) - nb_of_place)
 
@@ -53,12 +47,6 @@ class Clubs:
         if club:
             return club[0]
 
-    def get_club_points(self, club_name: str) -> dict:
-        club = self.get_club_by_name(club_name)
-        if club:
-            return club['points']
-
-    def withdraw_club_points(self, club_name: str, points: int) -> None:
-        club = self.get_club_by_name(club_name)
+    def withdraw_club_points(self, club, points: int) -> None:
         if club:
             club['points'] = str(int(club['points']) - points)
