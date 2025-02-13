@@ -137,3 +137,12 @@ class TestUnitServer:
 
         assert res.status_code == 200
         assert data.find('<title>GUDLFT Registration</title>') != -1
+
+    def test_club_balance_page(self, client):
+        res = client.get('/clubsBalance')
+        data = res.data.decode()
+
+        assert res.status_code == 200
+        assert data.find('<title>GUDLFT Clubs points balance</title>') != -1
+        assert data.find('<td>test_club_name</td>') != -1
+        assert data.find('<td>20</td>') != -1

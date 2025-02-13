@@ -15,6 +15,12 @@ def create_app(clubs, competitions):
     def index():
         return render_template('index.html')
 
+    @app.route('/clubsBalance')
+    def clubs_balance():
+        return render_template(
+            'balance.html',
+            clubs=clubs.get_list())
+
     @app.route('/showSummary', methods=['POST'])
     def show_summary():
         club = clubs.get_club_by_email(request.form['email'])
@@ -87,8 +93,6 @@ def create_app(clubs, competitions):
         else:
             flash('Something went wrong-please try again')
             return redirect(url_for('index'))
-
-    # TODO: Add route for points display
 
     @app.route('/logout')
     def logout():
