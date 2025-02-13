@@ -38,11 +38,7 @@ def create_app(clubs, competitions):
             )
         else:
             flash("Something went wrong-please try again")
-            return render_template(
-                'welcome.html',
-                club=club,
-                competitions=competitions.get_list()
-            )
+            return redirect(url_for('index'))
 
     @app.route('/purchasePlaces', methods=['POST'])
     def purchase_places():
@@ -53,6 +49,8 @@ def create_app(clubs, competitions):
         if club and competition:
             if places_required > int(club['points']):
                 flash("You cannot reserve more place than your number of points")
+            elif places_required > 12:
+                flash('You cannot reserve more than 12 places')
             else:
                 competitions.withdraw_competition_places(
                     competition,

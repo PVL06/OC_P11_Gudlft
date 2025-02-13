@@ -98,12 +98,12 @@ class TestUnitServer:
     def test_book_reservation_with_invalid_club_or_competition(self, client, clubs):
         clubs.get_club_by_name.return_value = None
 
-        res = client.get('/book/invalid_competition/invalid_club')
+        res = client.get('/book/invalid_competition/invalid_club', follow_redirects=True)
         data = res.data.decode()
 
         assert res.status_code == 200
         assert data.find('<li>Something went wrong-please try again</li>') != -1
-        assert data.find('<title>Summary | GUDLFT Registration</title>') != -1
+        assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_purchase_place_with_valid_club_and_competition(self, client):
         post_data = {
@@ -127,6 +127,6 @@ class TestUnitServer:
 
         res = client.post('/purchasePlaces', data=post_data, follow_redirects=True)
         data = res.data.decode()
-        
+
         assert res.status_code == 200
         assert data.find('<title>GUDLFT Registration</title>') != -1
