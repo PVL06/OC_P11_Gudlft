@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
+from datetime import datetime
 
 from utilities import Clubs, Competitions
+
+DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 
 def create_app(clubs, competitions):
@@ -31,11 +34,24 @@ def create_app(clubs, competitions):
         found_competition = competitions.get_competition(competition)
 
         if found_club and found_competition:
-            return render_template(
-                'booking.html',
-                club=found_club,
-                competition=found_competition
+            competition_date = datetime.strptime(
+                found_competition['date'],
+                DATE_FORMAT
             )
+
+            if competition_date > datetime.now():
+                return render_template(
+                    'booking.html',
+                    club=found_club,
+                    competition=found_competition
+                )
+            else:
+                flash(f"{found_competition['name']} competition is over")
+                return render_template(
+                    'welcome.html',
+                    club=found_club,
+                    competitions=competitions.get_list()
+                )
         else:
             flash("Something went wrong-please try again")
             return redirect(url_for('index'))

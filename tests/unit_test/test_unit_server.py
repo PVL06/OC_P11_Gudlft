@@ -1,7 +1,14 @@
+import datetime
+
 import pytest
 from unittest.mock import MagicMock
 
 from server import create_app
+
+
+def upper_str_date():
+    upper_date = datetime.datetime.now() + datetime.timedelta(days=2)
+    return upper_date.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @pytest.fixture
@@ -24,7 +31,7 @@ def clubs():
 def competitions():
     competition = {
         "name": "test_competition_name",
-        "date": "2020-03-27 10:00:00",
+        "date": upper_str_date(),
         "numberOfPlaces": "20"
     }
     mock_competitions = MagicMock()

@@ -1,7 +1,14 @@
+import datetime
+
 import pytest
 
 from server import create_app
 from utilities import Clubs, Competitions
+
+
+def upper_str_date():
+    upper_date = datetime.datetime.now() + datetime.timedelta(days=2)
+    return upper_date.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @pytest.fixture
@@ -23,7 +30,7 @@ def competitions():
     competitions.competitions = [
         {
             "name": "Spring Festival",
-            "date": "2020-03-27 10:00:00",
+            "date": upper_str_date(),
             "numberOfPlaces": "25"
         }
     ]
@@ -67,6 +74,7 @@ class TestIntegrationServer:
     def test_book_reservation_with_valid_club_and_competition(self, client, clubs, competitions):
         competition = competitions.competitions[0]['name']
         club = clubs.clubs[0]['name']
+
         res = client.get(f'/book/{competition}/{club}')
         data = res.data.decode()
 
@@ -153,3 +161,25 @@ class TestIntegrationServer:
         assert data.find("<li>You cannot reserve more than 12 places</li>") != -1
         assert data.find(f"Points available: {club_points}") != -1
         assert data.find(f"Number of Places: {competition_places}") != -1
+
+    def test_book_place_for_valid_competition_date(self, client, clubs, competitions):
+        competition = competitions.competitions[0]['name']
+        club = clubs.clubs[0]['name']
+
+        res = client.get(f'/book/{competition}/{club}')
+        data = res.data.decode()
+
+        assert res.status_code == 200
+        assert data.find(f'<title>Booking for {competition} || GUDLFT</title>') != -1
+
+    def test_book_place_for_invalid_competition_date(self, client, clubs, competitions):
+        competition = competitions.competitions[0]
+        club = clubs.clubs[0]
+        competition['date'] = "2020-10-22 13:30:00"
+
+        res = client.get(f"/book/{competition['name']}/{club['name']}")
+        data = res.data.decode()
+
+        assert res.status_code == 200
+        assert data.find("<title>Summary | GUDLFT Registration</title>") != -1
+        assert data.find(f"<li>{competition['name']} competition is over</li>")
