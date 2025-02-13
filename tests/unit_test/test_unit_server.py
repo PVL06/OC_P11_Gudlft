@@ -127,5 +127,6 @@ class TestUnitServer:
 
         res = client.post('/purchasePlaces', data=post_data, follow_redirects=True)
         data = res.data.decode()
+        
         assert res.status_code == 200
         assert data.find('<title>GUDLFT Registration</title>') != -1
