@@ -73,6 +73,8 @@ def create_app(clubs, competitions):
                 flash("You cannot reserve more place than your number of points")
             elif places_required > 12:
                 flash('You cannot reserve more than 12 places')
+            elif places_required > int(competition['numberOfPlaces']):
+                flash("You cannot reserve more space than available")
             else:
                 competitions.withdraw_competition_places(
                     competition,
