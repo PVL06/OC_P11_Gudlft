@@ -32,7 +32,7 @@ def create_app(clubs, competitions):
             )
         else:
             flash("Email not found", "error")
-            return render_template('index.html')
+            return redirect(url_for('index'))
 
     @app.route('/book/<competition>/<club>')
     def book(competition, club):

@@ -7,11 +7,12 @@ Summary | GUDLFT Registration
 {% endblock %}
 
 {% block content %}
-
-    <h2>Welcome, {{club['email']}} </h2>
+    <div class="flex items-center justify-between">
+        <h2>Welcome, {{club['email']}} </h2>
+        <a href="{{url_for('logout')}}">Logout</a>
+    </div>
     
     <p>Points available: {{ club['points'] }}</p>
-    <a href="{{url_for('logout')}}">Logout</a>
 
     <h3>Competitions:</h3>
     <ul>

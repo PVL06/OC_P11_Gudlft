@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-3xl font-semibold text-center p-8
+    }
+
+    h2 {
+        @apply text-xl py-8
+    }
+
+    p {
+        @apply py-16
+    }
+    
+    a, button {
+        @apply flex justify-center text-blue-400 border-2 border-solid border-blue-400 m-12 w-48 rounded-md p-1 hover:bg-slate-300
+    }
+
+    form {
+        @apply flex flex-col items-center
+    }
+
+    input {
+        @apply my-4 p-2
+    }
+
+}
+
+@layer components {
+    
+    .alert {
+        @apply bg-green-200 text-center w-full p-3
+    }
+
+    .alert.error {
+        @apply bg-red-200
+    }
+}
