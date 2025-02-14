@@ -31,7 +31,7 @@ def create_app(clubs, competitions):
                 competitions=competitions.get_list()
             )
         else:
-            flash("Email not found")
+            flash("Email not found", "error")
             return render_template('index.html')
 
     @app.route('/book/<competition>/<club>')
@@ -52,14 +52,14 @@ def create_app(clubs, competitions):
                     competition=found_competition
                 )
             else:
-                flash(f"{found_competition['name']} competition is over")
+                flash(f"{found_competition['name']} competition is over", "error")
                 return render_template(
                     'welcome.html',
                     club=found_club,
                     competitions=competitions.get_list()
                 )
         else:
-            flash("Something went wrong-please try again")
+            flash("Something went wrong-please try again", "error")
             return redirect(url_for('index'))
 
     @app.route('/purchasePlaces', methods=['POST'])
@@ -70,11 +70,11 @@ def create_app(clubs, competitions):
 
         if club and competition:
             if places_required > int(club['points']):
-                flash("You cannot reserve more place than your number of points")
+                flash("You cannot reserve more place than your number of points", "error")
             elif places_required > 12:
-                flash('You cannot reserve more than 12 places')
+                flash('You cannot reserve more than 12 places', "error")
             elif places_required > int(competition['numberOfPlaces']):
-                flash("You cannot reserve more space than available")
+                flash("You cannot reserve more space than available", "error")
             else:
                 competitions.withdraw_competition_places(
                     competition,
@@ -85,7 +85,7 @@ def create_app(clubs, competitions):
                     places_required
                 )
 
-                flash('Great-booking complete!')
+                flash('Great-booking complete!', 'done')
 
             return render_template(
                 'welcome.html',
@@ -93,7 +93,7 @@ def create_app(clubs, competitions):
                 competitions=competitions.get_list()
             )
         else:
-            flash('Something went wrong-please try again')
+            flash('Something went wrong-please try again', "error")
             return redirect(url_for('index'))
 
     @app.route('/logout')
