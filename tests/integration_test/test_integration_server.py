@@ -57,18 +57,18 @@ class TestIntegrationServer:
 
         assert res.status_code == 200
         assert data.find(f"<h2>Welcome, { clubs.clubs[0]['email'] } </h2>") != -1
-        assert data.find(f"{ competitions.competitions[0]['name'] }<br />") != -1
+        assert data.find(f"{ competitions.competitions[0]['name'] }") != -1
 
     def test_login_with_invalid_email(self, client):
         credential = {
             'email': 'bad@email.com'
         }
 
-        res = client.post('/showSummary', data=credential)
+        res = client.post('/showSummary', data=credential, follow_redirects=True)
         data = res.data.decode()
 
         assert res.status_code == 200
-        assert data.find('<li>Email not found</li>') != -1
+        assert data.find('Email not found') != -1
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_book_reservation_with_valid_club_and_competition(self, client, clubs, competitions):
@@ -86,7 +86,7 @@ class TestIntegrationServer:
         data = res.data.decode()
 
         assert res.status_code == 200
-        assert data.find('<li>Something went wrong-please try again</li>') != -1
+        assert data.find('Something went wrong-please try again') != -1
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_purchase_place_with_invalid_club_and_competition(self, client, clubs, competitions):
@@ -138,7 +138,7 @@ class TestIntegrationServer:
 
         assert res.status_code == 200
         assert data.find("<title>Summary | GUDLFT Registration</title>") != -1
-        assert data.find("<li>You cannot reserve more place than your number of points</li>") != -1
+        assert data.find("You cannot reserve more place than your number of points") != -1
         assert data.find(f"Points available: {club_points}") != -1
         assert data.find(f"Number of Places: {competition_places}") != -1
 
@@ -158,7 +158,7 @@ class TestIntegrationServer:
 
         assert res.status_code == 200
         assert data.find("<title>Summary | GUDLFT Registration</title>") != -1
-        assert data.find("<li>You cannot reserve more than 12 places</li>") != -1
+        assert data.find("You cannot reserve more than 12 places") != -1
         assert data.find(f"Points available: {club_points}") != -1
         assert data.find(f"Number of Places: {competition_places}") != -1
 
@@ -182,4 +182,4 @@ class TestIntegrationServer:
 
         assert res.status_code == 200
         assert data.find("<title>Summary | GUDLFT Registration</title>") != -1
-        assert data.find(f"<li>{competition['name']} competition is over</li>")
+        assert data.find(f"{competition['name']} competition is over")

@@ -70,7 +70,7 @@ class TestUnitServer:
 
         assert res.status_code == 200
         assert data.find("<h2>Welcome, test@test.com </h2>") != -1
-        assert data.find("test_competition_name<br />") != -1
+        assert data.find("test_competition_name") != -1
 
     def test_login_with_invalid_email(self, client, clubs):
         clubs.get_club_by_email.return_value = None
@@ -78,11 +78,11 @@ class TestUnitServer:
             'email': 'bad@email.com'
         }
 
-        res = client.post('/showSummary', data=credential)
+        res = client.post('/showSummary', data=credential, follow_redirects=True)
         data = res.data.decode()
 
         assert res.status_code == 200
-        assert data.find('<li>Email not found</li>') != -1
+        assert data.find('Email not found') != -1
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_logout_user(self, client):
@@ -109,7 +109,7 @@ class TestUnitServer:
         data = res.data.decode()
 
         assert res.status_code == 200
-        assert data.find('<li>Something went wrong-please try again</li>') != -1
+        assert data.find('Something went wrong-please try again') != -1
         assert data.find('<title>GUDLFT Registration</title>') != -1
 
     def test_purchase_place_with_valid_club_and_competition(self, client):

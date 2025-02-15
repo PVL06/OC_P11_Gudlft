@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}
-
-Summary | GUDLFT Registration
-
-{% endblock %}
+{% block title %}Summary | GUDLFT Registration{% endblock %}
 
 {% block content %}
     <div class="flex items-center justify-between">
@@ -18,8 +14,8 @@ Summary | GUDLFT Registration
     <ul>
         {% for comp in competitions %}
         <li class="flex items-center border-t-2 gap-32 p-6">
-            <div class="comp">
-                <p>{{ comp['name'] }}</p>
+            <div class="comp w-96">
+                <p class="font-bold">{{ comp['name'] }}</p>
                 <p>Date: {{ comp['date'] }}</p>
                 <p>Number of Places: {{ comp['numberOfPlaces'] }}</p>
                 {% if comp['numberOfPlaces']|int >0 %}

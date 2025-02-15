@@ -704,6 +704,10 @@ tr:nth-child(even) {
   width: 100%;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .table-auto {
   table-layout: auto;
 }
@@ -762,4 +766,8 @@ tr:nth-child(even) {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.font-bold {
+  font-weight: 700;
 }
