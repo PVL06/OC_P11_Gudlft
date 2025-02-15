@@ -1,16 +1,54 @@
-{"clubs":[
-    {
-        "name":"Simply Lift",
-        "email":"john@simplylift.co",
-        "points":"13"
-    },
-    {
-        "name":"Iron Temple",
-        "email": "admin@irontemple.com",
-        "points":"4"
-    },
-    {   "name":"She Lifts",
-        "email": "kate@shelifts.co.uk",
-        "points":"12"
-    }
-]}
+{
+    "clubs": [
+      {
+        "name": "Hurricane's",
+        "email": "hurricanesgym@example.com",
+        "points": "5"
+      },
+      {
+        "name": "Iron Pillar",
+        "email": "ironpillargym@example.com",
+        "points": "18"
+      },
+      {
+        "name": "Rising Sun Fitness",
+        "email": "risingsunfitness@example.com",
+        "points": "12"
+      },
+      {
+        "name": "Steel Warriors",
+        "email": "steelwarriorsgym@example.com",
+        "points": "8"
+      },
+      {
+        "name": "Thunder's Bluff",
+        "email": "thundersbluff@example.com",
+        "points": "14"
+      },
+      {
+        "name": "Vanguard Strength",
+        "email": "vanguardstrength@example.com",
+        "points": "20"
+      },
+      {
+        "name": "Whirlwind Fitness Center",
+        "email": "whirlwindfitnesscenter@example.com",
+        "points": "16"
+      },
+      {
+        "name": "Zephyr's Gym",
+        "email": "zephyrsgym@example.com",
+        "points": "3"
+      },
+      {
+        "name": "Valkyrie Strength & Conditioning",
+        "email": "valkyries@example.com",
+        "points": "19"
+      },
+      {
+        "name": "Phoenix Fitness",
+        "email": "phoenixfitness@example.com",
+        "points": "11"
+      }
+    ]
+  }
