@@ -11,12 +11,16 @@
         @apply text-xl py-8
     }
 
+    h3 {
+        @apply py-4
+    }
+
     p {
         @apply py-16
     }
     
     a, button {
-        @apply flex justify-center text-blue-400 border-2 border-solid border-blue-400 m-12 w-48 rounded-md p-1 hover:bg-slate-300
+        @apply flex justify-center text-blue-400 border-2 border-solid border-blue-400 m-4 w-48 rounded-md p-1 hover:bg-slate-300
     }
 
     form {
@@ -25,6 +29,14 @@
 
     input {
         @apply my-4 p-2
+    }
+
+    th, td {
+        @apply w-32 text-start p-2 border border-gray-300
+    }
+
+    tr {
+        @apply even:bg-gray-200 odd:bg-gray-50
     }
 
 }
@@ -37,5 +49,9 @@
 
     .alert.error {
         @apply bg-red-200
+    }
+
+    .comp p {
+        @apply py-2
     }
 }
