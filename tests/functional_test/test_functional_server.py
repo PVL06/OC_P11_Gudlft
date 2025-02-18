@@ -8,14 +8,17 @@ club = {
     "points": "5"
 }
 
+
 def _index(page: Page):
     page.goto(f"{LOCAL_HOST}/")
     expect(page).to_have_title("GUDLFT Registration")
+
 
 def _login(page: Page, email: str):
     page.get_by_role("textbox").fill(email)
     page.get_by_role("button", name="Enter").click()
     expect(page).to_have_title("Summary | GUDLFT Registration")
+
 
 def test_booking_place(page: Page):
     _index(page)
@@ -35,7 +38,6 @@ def test_booking_place(page: Page):
     expect(page.get_by_text(f"Points available: {str(int(club['points']) - 1)}")).to_be_visible()
     expect(page.get_by_text("Number of Places: 19")).to_be_visible()
 
-    
 
 def test_logout(page: Page):
     _index(page)
@@ -44,11 +46,13 @@ def test_logout(page: Page):
     page.get_by_role("link", name="logout").click()
     expect(page).to_have_title("GUDLFT Registration")
 
+
 def test_clubs_points_array_page(page: Page):
     _index(page)
     array_url = page.get_by_role('link').get_attribute("href")
     page.goto(f"{LOCAL_HOST}{array_url}")
     expect(page).to_have_title("GUDLFT Clubs points balance")
+
 
 def test_login_with_invalid_email(page: Page):
     _index(page)
