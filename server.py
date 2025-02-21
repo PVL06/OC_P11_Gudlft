@@ -85,7 +85,7 @@ def create_app(clubs, competitions):
                     places_required
                 )
 
-                flash('Great-booking complete!', 'done')
+                flash(f'Great-booking complete! You have reserved {str(places_required)} places', 'done')
 
             return render_template(
                 'welcome.html',
