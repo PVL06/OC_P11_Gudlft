@@ -2,25 +2,27 @@
 
 ## :v:Présentation du projet:
 
-Ce projet s’inscrit dans le cadre du parcours "Développeur d’application Python" sur OpenClassrooms.  
-Le projet Gudlft est une plateforme numérique pour coordonner les compétitions de force (deadlifting, strongman) en Amérique du Nord et en Australie. L'objectif du projet est de créer un site plus léger pour l'organisation de competition au niveau regional, le projet est au stade du prototypage et utilise le microframework Flask.  
+Ce projet s’inscrit dans le cadre du parcours "Développeur d’application Python" sur OpenClassrooms.
+Le projet Gudlft est une plateforme numérique visant à coordonner les compétitions de force (deadlifting, strongman) en Amérique du Nord et en Australie. Son objectif est de proposer un site plus léger pour l'organisation de compétitions au niveau régional. Actuellement au stade du prototypage, il repose sur le microframework Flask.
 
-Une base a déja été implémenté mais comporte des bugs et doit etre compléter avec une nouvelle feature. L'objectif est donc de reprendre le projet en suivant une methodologie de developpement professionelle avec la creation de branche git pour la correction de chaque bugs ou l'ajout de la nouvelle feature et qui comporte des tests avant l'intergration dans la branche principale. De plus, des tests de fonctionnalité et de perforance sont ajouter pour etre conforme au spécification du cahier des charges.
+Une base a déjà été implémentée, mais elle contient des bugs et doit être complétée avec une nouvelle fonctionnalité. L'objectif est donc de reprendre le projet en appliquant une méthodologie de développement rigoureuse, notamment en utilisant Git pour créer des branches dédiées à la correction de chaque bug ou à l'ajout de la nouvelle fonctionnalité. Chaque modification devra être accompagnée de tests avant son intégration dans la branche principale.
 
-## Methodologie:
+Par ailleurs, des tests fonctionnels et de performance seront ajoutés afin de garantir la conformité du projet avec les spécifications du cahier des charges.
 
-Chaque étape a été implémenté dans une nouvelle branche git et est accompagné de test unitaire et d'integration  
-1. Refacting du code de base en séparant l'application flask et la gestion des données et ajout des tests unitaire et d'intégration
-2. Résolution de l'issue 1: bug de l'application si un mauvais email est saisi dans la partie login.
-3. Résolution de l'issue 2: Empecher la réservation de plus de place que le club n'a de points et deduction des points du club a chaque nouvelle reservation.
-4. Résolution de l'issue 3: Eviter que le club ne puisse réserver plus de 12 places.
-5. Résolution de l'issue 4: Empecher la reservation de place sur des competitions déjà passé.
-6. Ajout de la feature: Ajout d'une page en accès libre pour voir la balance des point de chaque club
-7. Refactoring du html et ajout de css avec tailwind
-8. Ajout des tests fonctionnel et de performance
+## :triangular_ruler:Methodologie:
 
-## Installation
-Récupération du dépôt avec Git.
+Chaque étape a été implémentée dans une nouvelle branche Git et est accompagnée de tests unitaires et d'intégration. 
+1. Refactoring du code de base en séparant l'application Flask de la gestion des données, et ajout de tests unitaires et d'intégration.
+2. Résolution de l'issue 1 : Correction d'un bug provoquant une erreur lorsque un mauvais email est saisi lors de la connexion.
+3. Résolution de l'issue 2 : Empêcher la réservation de plus de places que le club ne possède de points et déduire les points du club à chaque nouvelle réservation.
+4. Résolution de l'issue 3 : Limiter la réservation à un maximum de 12 places par club.
+5. Résolution de l'issue 4 : Empêcher la réservation de places pour des compétitions déjà passées.
+6. Ajout d'une fonctionnalité : Création d'une page en accès libre permettant de consulter la balance des points de chaque club.
+7. Refactoring du HTML et ajout de styles avec Tailwind CSS.
+8. Ajout de tests fonctionnels et de performance.
+
+## :arrow_heading_down:Installation
+Récupération du dépôt en local avec Git.
 ```
 git clone https://github.com/PVL06/OC_P11_Gudlft.git
 ```
@@ -41,5 +43,11 @@ Lancement du serveur
 python server.py
 ```
 
-## Tests
+## :white_check_mark:Tests
+### Couverture des tests:  
+
 ![test coverage](img/coverage.png)
+Pour plus de détails, ouvrez le fichier index.html du dossier htmlcov dans un navigateur.
+
+### Test de performance:
+![test performance](img/perf.png)
