@@ -2,11 +2,12 @@
 
 ## :v:Présentation du projet:
 
-Ce projet s’inscrit dans le cadre du parcours "Développeur d’application Python" sur OpenClassrooms.
+Ce projet s’inscrit dans le cadre du parcours "Développeur d’application Python" sur OpenClassrooms.  
+  
 Le projet Gudlft est une plateforme numérique visant à coordonner les compétitions de force (deadlifting, strongman) en Amérique du Nord et en Australie. Son objectif est de proposer un site plus léger pour l'organisation de compétitions au niveau régional. Actuellement au stade du prototypage, il repose sur le microframework Flask.
-
+  
 Une base a déjà été implémentée, mais elle contient des bugs et doit être complétée avec une nouvelle fonctionnalité. L'objectif est donc de reprendre le projet en appliquant une méthodologie de développement rigoureuse, notamment en utilisant Git pour créer des branches dédiées à la correction de chaque bug ou à l'ajout de la nouvelle fonctionnalité. Chaque modification devra être accompagnée de tests avant son intégration dans la branche principale.
-
+  
 Par ailleurs, des tests fonctionnels et de performance seront ajoutés afin de garantir la conformité du projet avec les spécifications du cahier des charges.
 
 ## :triangular_ruler:Methodologie:
@@ -46,7 +47,7 @@ python server.py
 ## :white_check_mark:Tests
 ### Couverture des tests:  
 
-![test coverage](img/coverage.png)
+![test coverage](img/coverage.png)  \
 Pour plus de détails, ouvrez le fichier index.html du dossier htmlcov dans un navigateur.
 
 ### Test de performance:
