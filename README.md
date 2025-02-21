@@ -1,51 +1,45 @@
-# gudlift-registration
+# OC Projet 11: Gudlft
 
-1. Why
+## :v:Présentation du projet:
 
+Ce projet s’inscrit dans le cadre du parcours "Développeur d’application Python" sur OpenClassrooms.  
+Le projet Gudlft est une plateforme numérique pour coordonner les compétitions de force (deadlifting, strongman) en Amérique du Nord et en Australie. L'objectif du projet est de créer un site plus léger pour l'organisation de competition au niveau regional, le projet est au stade du prototypage et utilise le microframework Flask.  
 
-    This is a proof of concept (POC) project to show a light-weight version of our competition booking platform. The aim is the keep things as light as possible, and use feedback from the users to iterate.
+Une base a déja été implémenté mais comporte des bugs et doit etre compléter avec une nouvelle feature. L'objectif est donc de reprendre le projet en suivant une methodologie de developpement professionelle avec la creation de branche git pour la correction de chaque bugs ou l'ajout de la nouvelle feature et qui comporte des tests avant l'intergration dans la branche principale. De plus, des tests de fonctionnalité et de perforance sont ajouter pour etre conforme au spécification du cahier des charges.
 
-2. Getting Started
+## Methodologie:
 
-    This project uses the following technologies:
+Chaque étape a été implémenté dans une nouvelle branche git et est accompagné de test unitaire et d'integration  
+1. Refacting du code de base en séparant l'application flask et la gestion des données et ajout des tests unitaire et d'intégration
+2. Résolution de l'issue 1: bug de l'application si un mauvais email est saisi dans la partie login.
+3. Résolution de l'issue 2: Empecher la réservation de plus de place que le club n'a de points et deduction des points du club a chaque nouvelle reservation.
+4. Résolution de l'issue 3: Eviter que le club ne puisse réserver plus de 12 places.
+5. Résolution de l'issue 4: Empecher la reservation de place sur des competitions déjà passé.
+6. Ajout de la feature: Ajout d'une page en accès libre pour voir la balance des point de chaque club
+7. Refactoring du html et ajout de css avec tailwind
+8. Ajout des tests fonctionnel et de performance
 
-    * Python v3.x+
+## Installation
+Récupération du dépôt avec Git.
+```
+git clone https://github.com/PVL06/OC_P11_Gudlft.git
+```
+Environnement virtuel et dépendances.
+```
+cd OC_P11_Gudlft
+python -m venv env
 
-    * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+# Windows
+env/Script/activate
+# Linux
+source env/bin/activate
 
-        Whereas Django does a lot of things for us out of the box, Flask allows us to add only what we need. 
-     
+pip install -r requirements.txt
+```
+Lancement du serveur
+```
+python server.py
+```
 
-    * [Virtual environment](https://virtualenv.pypa.io/en/stable/installation.html)
-
-        This ensures you'll be able to install the correct packages without interfering with Python on your machine.
-
-        Before you begin, please ensure you have this installed globally. 
-
-
-3. Installation
-
-    - After cloning, change into the directory and type <code>virtualenv .</code>. This will then set up a a virtual python environment within that directory.
-
-    - Next, type <code>source bin/activate</code>. You should see that your command prompt has changed to the name of the folder. This means that you can install packages in here without affecting affecting files outside. To deactivate, type <code>deactivate</code>
-
-    - Rather than hunting around for the packages you need, you can install in one step. Type <code>pip install -r requirements.txt</code>. This will install all the packages listed in the respective file. If you install a package, make sure others know by updating the requirements.txt file. An easy way to do this is <code>pip freeze > requirements.txt</code>
-
-    - Flask requires that you set an environmental variable to the python file. However you do that, you'll want to set the file to be <code>server.py</code>. Check [here](https://flask.palletsprojects.com/en/1.1.x/quickstart/#a-minimal-application) for more details
-
-    - You should now be ready to test the application. In the directory, type either <code>flask run</code> or <code>python -m flask run</code>. The app should respond with an address you should be able to go to using your browser.
-
-4. Current Setup
-
-    The app is powered by [JSON files](https://www.tutorialspoint.com/json/json_quick_guide.htm). This is to get around having a DB until we actually need one. The main ones are:
-     
-    * competitions.json - list of competitions
-    * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
-
-5. Testing
-
-    You are free to use whatever testing framework you like-the main thing is that you can show what tests you are using.
-
-    We also like to show how well we're testing, so there's a module called 
-    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
-
+## Tests
+![test coverage](img/coverage.png)
